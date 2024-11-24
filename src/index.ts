@@ -13,6 +13,10 @@ const app = express();
 app.use(express.json()); //middleware: automatically convert request body to json.
 app.use(cors());
 
+app.get("/health", async (req: Request, res: Response) => {
+  res.send({ message: "health OK!" });
+});
+
 // /api/my/user => whenever user makes a post request to this route, this line will run.
 app.use("/api/my/user", myUserRoute); //creating user route api
 
