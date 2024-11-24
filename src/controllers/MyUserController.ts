@@ -22,3 +22,29 @@ export const createCurrentUser = async (
     res.status(500).json({ message: "Error creating user" });
   }
 };
+
+export const updateCurrentUser = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
+    const { name, addressLine1, city, country } = req.body; //these properties will be sent to our frontend form.
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" }); //if user is not exist.
+    }
+
+    user.name = name;
+    user.addressLine1 = addressLine1;
+    user.city = city;
+    user.country = country;
+
+    await user.save(); //after updating all fields, save it do the DB.
+
+    res.send(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error updating user" });
+  }
+};
