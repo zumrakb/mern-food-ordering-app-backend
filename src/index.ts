@@ -18,7 +18,8 @@ cloudinary.config({
 });
 
 const app = express();
-app.use(express.json()); //middleware: automatically convert request body to json.
+app.use(express.json({ limit: "10mb" })); // Set request body size limit to 10MB
+//middleware: automatically convert request body to json.
 app.use(cors());
 
 app.get("/health", async (req: Request, res: Response) => {
