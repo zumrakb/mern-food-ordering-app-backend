@@ -1,6 +1,9 @@
 import express from "express";
 import multer from "multer";
-import { createMyRestaurant } from "../controllers/MyRestaurantController";
+import {
+  createMyRestaurant,
+  getMyRestaurant,
+} from "../controllers/MyRestaurantController";
 import { jwtCheck, jwtParse } from "../middleware/auth";
 import { validateMyRestaurantRequest } from "../middleware/validation";
 
@@ -14,13 +17,15 @@ const upload = multer({
   },
 });
 
+router.get("/", jwtCheck, jwtParse, getMyRestaurant);
+
 // /api/my/restaurant
 router.post(
   "/",
+  upload.single("imageFile"),
   validateMyRestaurantRequest,
   jwtCheck,
   jwtParse,
-  upload.single("imageFile"),
   createMyRestaurant
 );
 //upload.single("imageFile") => this middlevare do=> anytime we have post request api my restaurant route, it gonna check req body for a proptery called imageFile
