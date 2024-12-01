@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import myUserRoute from "./routes/MyUserRoute";
 import myRestaurantRoute from "./routes/MyRestaurantRoute";
 import { v2 as cloudinary } from "cloudinary";
+import restaurantRoute from "./routes/RestaurantRoute";
 
 /* connecting to database */
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string).then(() => {
@@ -29,7 +30,7 @@ app.get("/health", async (req: Request, res: Response) => {
 // /api/my/user => whenever user makes a post request to this route, this line will run.
 app.use("/api/my/user", myUserRoute); //creating user route api
 app.use("/api/my/restaurant", myRestaurantRoute); //creating restaurant route api
-
+app.use("/api/restaurant", restaurantRoute);
 app.listen(7000, () => {
   console.log("Server is running on port 7000");
 });
