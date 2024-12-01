@@ -3,6 +3,7 @@ import multer from "multer";
 import {
   createMyRestaurant,
   getMyRestaurant,
+  updateMyRestaurant,
 } from "../controllers/MyRestaurantController";
 import { jwtCheck, jwtParse } from "../middleware/auth";
 import { validateMyRestaurantRequest } from "../middleware/validation";
@@ -29,5 +30,14 @@ router.post(
   createMyRestaurant
 );
 //upload.single("imageFile") => this middlevare do=> anytime we have post request api my restaurant route, it gonna check req body for a proptery called imageFile
+
+router.put(
+  "/",
+  upload.single("imageFile"),
+  validateMyRestaurantRequest,
+  jwtCheck,
+  jwtParse,
+  updateMyRestaurant
+);
 
 export default router;
