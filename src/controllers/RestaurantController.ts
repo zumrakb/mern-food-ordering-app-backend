@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Restaurant from "../models/restaurant";
 
-export const searchRestaurants = async (
+export const searchRestaurant = async (
   req: Request,
   res: Response
 ): Promise<any> => {
@@ -57,7 +57,7 @@ export const searchRestaurants = async (
 
     const response = {
       data: restaurants,
-      psgination: {
+      pagination: {
         total,
         page,
         pages: Math.ceil(total / pageSize), // 50 results/oagesize = 10 > pages 5
