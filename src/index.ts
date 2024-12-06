@@ -20,14 +20,17 @@ cloudinary.config({
 });
 
 const app = express();
-app.use(express.json({ limit: "10mb" })); // Set request body size limit to 10MB
+
 //middleware: automatically convert request body to json.
 app.use(cors());
+
+app.use("/api/order/checkout/webhook", express.raw({ type: "*/*" }));
+
+app.use(express.json({ limit: "10mb" })); // Set request body size limit to 10MB
 
 app.get("/health", async (req: Request, res: Response) => {
   res.send({ message: "health OK!" });
 });
-
 // /api/my/user => whenever user makes a post request to this route, this line will run.
 app.use("/api/my/user", myUserRoute); //creating user route api
 app.use("/api/my/restaurant", myRestaurantRoute); //creating restaurant route api
